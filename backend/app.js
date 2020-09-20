@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -8,7 +9,6 @@ const mongoose = require('mongoose');
 const eventsRoutes = require('./routes/events-routes');
 const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
-require('dotenv').config()
 
 const app = express();
 
