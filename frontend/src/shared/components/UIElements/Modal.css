@@ -9,23 +9,8 @@
   border-radius: 8px;
 }
 
-.modal__header {
-  width: 100%;
-  padding: 1rem 0.5rem;
-  background: #3788d8;
-  color: white;
-}
-
-.modal__header h2 {
-  margin: 0.5rem;
-}
-
 .modal__content {
-  padding: 1rem 0.5rem;
-}
-
-.modal__footer {
-  padding: 1rem 0.5rem;
+  padding: 3rem 1rem;
 }
 
 @media (min-width: 768px) {

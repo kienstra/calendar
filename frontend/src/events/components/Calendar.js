@@ -5,18 +5,21 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list';
 
+import Event from '../components/Event';
 import NewEvent from '../components/NewEvent';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 
 const Calendar = ({ events, fetchEvents, onDelete }) => {
-  const [ isEditingEvent, setisEditingEvent ] = useState(false);
+  const [ isCreatingEvent, setIsCreatingEvent ] = useState(false);
+  const [ isViewingEvent, setIsViewingEvent ] = useState(false);
+  const [ eventBeingViewed, setEventBeingViewed ] = useState({});
   const [ newEventStartTime, setNewEventStartTime ] = useState('');
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
 
   const handleEventChange = async changeInfo => {
-    if ( changeInfo.event.start === changeInfo.oldEvent.start || ! changeInfo.event || ! changeInfo.event.id ) {
+    if ( changeInfo.event.start === changeInfo.oldEvent.start || ! changeInfo.event.id ) {
       return;
     }
 
@@ -47,20 +50,23 @@ const Calendar = ({ events, fetchEvents, onDelete }) => {
    * @param {Object} selectInfo The info associated with selecting.
    */
   const handleDateSelect = (selectInfo) => {
-    setisEditingEvent(true);
-    setNewEventStartTime(selectInfo.startStr);
     selectInfo.view.calendar.unselect(); // Clear date selection.
+    setNewEventStartTime(selectInfo.startStr);
+    setIsCreatingEvent(true);
   }
 
-  const handleNewEventClose = () => setisEditingEvent( false );
+  const handleNewEventClose = () => setIsCreatingEvent( false );
+  const handleViewEventClose = () => setIsViewingEvent( false );
 
   const handleEventClick = (eventClickInfo) => {
-    setisEditingEvent(true);
+    setEventBeingViewed(eventClickInfo.event);
+    setIsViewingEvent(true);
   };
 
   return (
     <>
-      {isEditingEvent && <NewEvent fetchEvents={fetchEvents} startTime={newEventStartTime} onClose={handleNewEventClose} />}
+      {isCreatingEvent && <NewEvent fetchEvents={fetchEvents} startTime={newEventStartTime} onClose={handleNewEventClose} />}
+      {isViewingEvent && <Event event={ eventBeingViewed } onClose={handleViewEventClose} />}
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
         initialView="dayGridMonth"

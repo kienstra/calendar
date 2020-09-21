@@ -57,7 +57,7 @@ mongoose
     }
   )
   .then(() => {
-    app.listen(5000);
+    app.listen(process.env.REACT_APP_BACKEND_PORT);
   })
   .catch(err => {
     console.log(err);

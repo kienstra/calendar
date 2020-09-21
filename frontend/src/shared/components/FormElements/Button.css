@@ -22,7 +22,7 @@
 
 .button--inverse {
   background: transparent;
-  color: #ff0055;
+  color: #000;
 }
 
 .button--inverse:hover,
