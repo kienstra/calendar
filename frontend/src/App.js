@@ -43,6 +43,9 @@ const App = () => {
         <Route path="/:userId/events" exact>
           <UserEvents />
         </Route>
+        <Route path="/events/:eventId">
+          <UpdateEvent />
+        </Route>
         <Route path="/auth">
           <Auth />
         </Route>

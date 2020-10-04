@@ -41,8 +41,9 @@ const NewEvent = ( { fetchEvents, onClose, startTime } ) => {
       await sendRequest(process.env.REACT_APP_BACKEND_URL + '/events', 'POST', formData, {
         Authorization: 'Bearer ' + auth.token
       });
-      fetchEvents();
     } catch (err) {}
+
+    fetchEvents();
     onClose();
   };
 

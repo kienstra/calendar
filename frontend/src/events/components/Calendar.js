@@ -10,7 +10,7 @@ import NewEvent from '../components/NewEvent';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 
-const Calendar = ({ events, fetchEvents, onDelete }) => {
+const Calendar = ({ events, fetchEvents }) => {
   const [ isCreatingEvent, setIsCreatingEvent ] = useState(false);
   const [ isViewingEvent, setIsViewingEvent ] = useState(false);
   const [ eventBeingViewed, setEventBeingViewed ] = useState({});
