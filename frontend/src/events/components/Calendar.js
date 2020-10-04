@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -17,6 +18,7 @@ const Calendar = ({ events, fetchEvents }) => {
   const [ newEventStartTime, setNewEventStartTime ] = useState('');
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
+  const isCalendarForCurrentUser = auth.userId === useParams().userId;
 
   const handleEventChange = async changeInfo => {
     if ( changeInfo.event.start === changeInfo.oldEvent.start || ! changeInfo.event.id ) {
@@ -77,7 +79,7 @@ const Calendar = ({ events, fetchEvents }) => {
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         }}
-        editable={true}
+        editable={isCalendarForCurrentUser}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}

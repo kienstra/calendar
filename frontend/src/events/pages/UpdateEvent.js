@@ -67,8 +67,9 @@ const UpdateEvent = () => {
         `http://localhost:5000/api/events/${eventId}`,
         'PATCH',
         JSON.stringify({
+          description: formState.inputs.description.value,
+          start: loadedEvent.start,
           title: formState.inputs.title.value,
-          description: formState.inputs.description.value
         }),
         {
           'Content-Type': 'application/json',
